@@ -1,0 +1,18 @@
+<div class="container" #container>
+  <span class="helper"></span>
+  <img
+    #image
+    (pinch)="onPinch($event)"
+    (pinchend)="onPinchEnd($event)"
+    (pan)="pan($event)"
+    (panend)="panend($event)"
+    (click)="click($event)"
+    (tap)="onTap($event)"
+    [ngStyle]="{'transform': 'translateY(' + delta + 'px) scale('+scale+') translateX(' + deltaX + 'px)'}"
+    (swipe)="swipe($event)"
+    class="dissmiss"
+    (load)="imgOnLoading($event)"
+    [src]="images[index].src"
+  />
+</div>
+<div class="debug">Scale {{testPinch}}</div>
