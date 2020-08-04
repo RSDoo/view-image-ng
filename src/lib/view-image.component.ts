@@ -7,21 +7,21 @@ import {
   Output,
   EventEmitter,
   AfterViewInit,
-} from '@angular/core';
+} from "@angular/core";
 
-import * as Hammer from 'hammerjs';
+import * as Hammer from "hammerjs";
 
 @Component({
-  selector: 'view-images',
-  templateUrl: 'view-image.template.html',
-  styleUrls: ['view-image.scss'],
+  selector: "view-images",
+  templateUrl: "view-image.template.html",
+  styleUrls: ["view-image.scss"],
 })
 export class ViewImageComponent implements OnInit, AfterViewInit {
   @Input() images: _Image[] = [];
   @Input() index: number = 0;
   @Output() onDismiss = new EventEmitter<any>();
-  @ViewChild('image') imageView: ElementRef;
-  @ViewChild('container') container: ElementRef;
+  @ViewChild("image") imageView: ElementRef;
+  @ViewChild("container") container: ElementRef;
 
   public delta: number = 0;
   public deltaX: number = 0;
@@ -36,13 +36,11 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.images);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const hammer = new Hammer(this.imageView.nativeElement);
-    hammer.get('pinch').set({ enable: true });
+    hammer.get("pinch").set({ enable: true });
     if (this.images.length > 1) {
       this.preLoad();
     }
@@ -72,14 +70,11 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
   }
 
   public onPinch(event): void {
-    // console.log('onPinch', event);
     this.pinching = true;
     this.scale = Math.min(event.scale, 3);
-    // console.log(this.scale);
   }
 
   public onPinchEnd(event) {
-    // console.log('onPinchEnde', event);
     setTimeout(() => {
       this.pinching = false;
     }, 100);
@@ -109,10 +104,10 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     this.pinching = false;
 
     if (this.loading) {
-      console.log('imageView', this.imageView);
-      this.imageView.nativeElement.className = 'reset-c';
+      console.log("imageView", this.imageView);
+      this.imageView.nativeElement.className = "reset-c";
       setTimeout(() => {
-        this.imageView.nativeElement.className = '';
+        this.imageView.nativeElement.className = "";
       }, 500);
     }
   }
@@ -125,12 +120,12 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
 
   private doDismiss(): void {
     if (this.delta > 0) {
-      this.imageView.nativeElement.className = 'img-dismiss-down';
+      this.imageView.nativeElement.className = "img-dismiss-down";
     } else {
-      this.imageView.nativeElement.className = 'img-dismiss-up';
+      this.imageView.nativeElement.className = "img-dismiss-up";
     }
 
-    this.container.nativeElement.className = ' container container-dismiss';
+    this.container.nativeElement.className = " container container-dismiss";
 
     setTimeout(() => {
       this.onDismiss.emit({ dismissValue: true });
@@ -152,7 +147,7 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
   }
 
   public imgOnLoading(event) {
-    console.log('onLoad', event);
+    console.log("onLoad", event);
     this.loading = false;
   }
 }
