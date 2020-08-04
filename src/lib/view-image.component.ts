@@ -104,7 +104,6 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     this.pinching = false;
 
     if (this.loading) {
-      console.log("imageView", this.imageView);
       this.imageView.nativeElement.className = "reset-c";
       setTimeout(() => {
         this.imageView.nativeElement.className = "";
@@ -147,7 +146,6 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
   }
 
   public imgOnLoading(event) {
-    console.log("onLoad", event);
     this.loading = false;
   }
 }
