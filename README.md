@@ -27,7 +27,7 @@ import { ViewImageModule } from 'view-image-ng';
 Use component
 
 ```html
-<view-images [images]="[{src: 'your image url'}]"</view-images>
+<view-images [images]="[{src: 'your image url'}]"></view-images>
 ```
 
 # Params
