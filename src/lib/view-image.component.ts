@@ -32,8 +32,6 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
   private minMoveThreshold = 25;
   private pinching = false;
 
-  public testPinch: any;
-
   constructor() {}
 
   ngOnInit(): void {}
@@ -69,25 +67,39 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     event.stopPropagation();
   }
 
+  /**
+   * Zoom in the image
+   */
   public onPinch(event): void {
     this.pinching = true;
     this.scale = Math.min(event.scale, 3);
   }
 
+  /**
+   * Zoom end
+   */
   public onPinchEnd(event) {
+    console.log("event", event);
     setTimeout(() => {
       this.pinching = false;
     }, 100);
   }
 
+  /**
+   * Moving image or dismiss
+   */
   public panend(event): void {
     if (Math.abs(event.deltaY) > this.dismissThreshold) {
       this.doDismiss();
     } else {
-      this.reset();
+      this.moveImage(event);
     }
   }
 
+  /**
+   * Swipe to next image
+   * @param event
+   */
   public swipe(event): void {
     this.loading = true;
     if (event.direction === 2) {
@@ -97,6 +109,9 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Reset all params for image transformation
+   */
   private reset(): void {
     this.scale = 1;
     this.delta = 0;
@@ -111,12 +126,23 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * On double tap zoom in or zoom out
+   * @param event
+   */
   public onTap(event) {
     if (event.tapCount >= 2) {
-      this.reset();
+      if (this.scale !== 1) {
+        this.reset();
+      } else {
+        this.scale = 2;
+      }
     }
   }
 
+  /**
+   * Animations for dismiss
+   */
   private doDismiss(): void {
     if (this.delta > 0) {
       this.imageView.nativeElement.className = "img-dismiss-down";
@@ -131,7 +157,11 @@ export class ViewImageComponent implements OnInit, AfterViewInit {
     }, 300);
   }
 
+  /**
+   * Swipe to other image in array
+   */
   private changeIndex(value: number): void {
+    this.reset();
     if (this.index + value < 0) {
       this.index = this.images.length - 1;
     } else if (this.index + value > this.images.length - 1) {
