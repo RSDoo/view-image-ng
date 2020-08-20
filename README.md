@@ -1,7 +1,7 @@
 # view-image-ng
 
 View your image in full screen with zoom & swipe.  
-For angular9+ project
+For angular9+ projects
 
 [![preview](https://s7.gifyu.com/images/imageView_video.gif)](https://gifyu.com/image/cZvQ)
 
@@ -27,9 +27,7 @@ import { ViewImageModule } from 'view-image-ng';
 Use component
 
 ```html
-<view-images [images]="[{src: 'your image url'}]"
-  ><view-images></view-images
-></view-images>
+<view-images [images]="[{src: 'your image url'}]"</view-images>
 ```
 
 # Params
